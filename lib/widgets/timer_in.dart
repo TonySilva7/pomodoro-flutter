@@ -1,11 +1,49 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
 
 class TimerIn extends StatelessWidget {
-  const TimerIn({super.key});
+  final String title;
+  final int value;
+
+  const TimerIn({super.key, required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontSize: 22),
+        ),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                backgroundColor: const Color.fromRGBO(207, 29, 16, 1),
+                padding: const EdgeInsets.all(5),
+              ),
+              child: const Icon(Icons.arrow_downward),
+            ),
+            Text(
+              '$value min',
+              style: const TextStyle(fontSize: 18),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                backgroundColor: const Color.fromRGBO(207, 29, 16, 1),
+                padding: const EdgeInsets.all(5),
+              ),
+              child: const Icon(Icons.arrow_upward),
+            ),
+          ],
+        )
+      ],
+    );
   }
 }
