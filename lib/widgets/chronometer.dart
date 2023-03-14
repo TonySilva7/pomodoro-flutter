@@ -1,11 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:pomodoro/store/pomodoro.store.dart';
 import 'package:pomodoro/widgets/chron_button.dart';
+import 'package:provider/provider.dart';
 
 class Chronometer extends StatelessWidget {
   const Chronometer({super.key});
 
+  String handleTimer(int time) {
+    return time.toString().padLeft(2, '0');
+  }
+
   @override
   Widget build(BuildContext context) {
+    final store = Provider.of<PomodoroStore>(context);
+
     return Container(
         color: const Color.fromRGBO(237, 59, 32, 1),
         child: Column(
@@ -19,9 +29,9 @@ class Chronometer extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              '25:00',
-              style: TextStyle(
+            Text(
+              '${handleTimer(store.minutes)}:${handleTimer(store.seconds)}',
+              style: const TextStyle(
                 fontSize: 100,
                 color: Colors.white70,
               ),

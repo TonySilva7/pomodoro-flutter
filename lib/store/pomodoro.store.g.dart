@@ -9,6 +9,38 @@ part of 'pomodoro.store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PomodoroStore on PomodoroStoreBase, Store {
+  late final _$minutesAtom =
+      Atom(name: 'PomodoroStoreBase.minutes', context: context);
+
+  @override
+  int get minutes {
+    _$minutesAtom.reportRead();
+    return super.minutes;
+  }
+
+  @override
+  set minutes(int value) {
+    _$minutesAtom.reportWrite(value, super.minutes, () {
+      super.minutes = value;
+    });
+  }
+
+  late final _$secondsAtom =
+      Atom(name: 'PomodoroStoreBase.seconds', context: context);
+
+  @override
+  int get seconds {
+    _$secondsAtom.reportRead();
+    return super.seconds;
+  }
+
+  @override
+  set seconds(int value) {
+    _$secondsAtom.reportWrite(value, super.seconds, () {
+      super.seconds = value;
+    });
+  }
+
   late final _$workingTimeAtom =
       Atom(name: 'PomodoroStoreBase.workingTime', context: context);
 
@@ -91,6 +123,8 @@ mixin _$PomodoroStore on PomodoroStoreBase, Store {
   @override
   String toString() {
     return '''
+minutes: ${minutes},
+seconds: ${seconds},
 workingTime: ${workingTime},
 restTime: ${restTime}
     ''';
