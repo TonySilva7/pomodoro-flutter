@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class TimerIn extends StatelessWidget {
   final String title;
   final int value;
+  final void Function()? increment;
+  final void Function()? decrement;
 
-  const TimerIn({super.key, required this.title, required this.value});
+  const TimerIn({super.key, required this.title, required this.value, this.increment, this.decrement});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class TimerIn extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: decrement,
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 backgroundColor: const Color.fromRGBO(207, 29, 16, 1),
@@ -33,7 +35,7 @@ class TimerIn extends StatelessWidget {
               style: const TextStyle(fontSize: 18),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: increment,
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 backgroundColor: const Color.fromRGBO(207, 29, 16, 1),
