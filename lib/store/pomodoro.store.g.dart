@@ -9,6 +9,22 @@ part of 'pomodoro.store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PomodoroStore on PomodoroStoreBase, Store {
+  late final _$isStartedAtom =
+      Atom(name: 'PomodoroStoreBase.isStarted', context: context);
+
+  @override
+  bool get isStarted {
+    _$isStartedAtom.reportRead();
+    return super.isStarted;
+  }
+
+  @override
+  set isStarted(bool value) {
+    _$isStartedAtom.reportWrite(value, super.isStarted, () {
+      super.isStarted = value;
+    });
+  }
+
   late final _$minutesAtom =
       Atom(name: 'PomodoroStoreBase.minutes', context: context);
 
@@ -77,6 +93,39 @@ mixin _$PomodoroStore on PomodoroStoreBase, Store {
       ActionController(name: 'PomodoroStoreBase', context: context);
 
   @override
+  void startTimer() {
+    final _$actionInfo = _$PomodoroStoreBaseActionController.startAction(
+        name: 'PomodoroStoreBase.startTimer');
+    try {
+      return super.startTimer();
+    } finally {
+      _$PomodoroStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void restartTimer() {
+    final _$actionInfo = _$PomodoroStoreBaseActionController.startAction(
+        name: 'PomodoroStoreBase.restartTimer');
+    try {
+      return super.restartTimer();
+    } finally {
+      _$PomodoroStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void stopTimer() {
+    final _$actionInfo = _$PomodoroStoreBaseActionController.startAction(
+        name: 'PomodoroStoreBase.stopTimer');
+    try {
+      return super.stopTimer();
+    } finally {
+      _$PomodoroStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void incrementWorkingTime() {
     final _$actionInfo = _$PomodoroStoreBaseActionController.startAction(
         name: 'PomodoroStoreBase.incrementWorkingTime');
@@ -123,6 +172,7 @@ mixin _$PomodoroStore on PomodoroStoreBase, Store {
   @override
   String toString() {
     return '''
+isStarted: ${isStarted},
 minutes: ${minutes},
 seconds: ${seconds},
 workingTime: ${workingTime},

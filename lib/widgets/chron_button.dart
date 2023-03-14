@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class ChronButton extends StatelessWidget {
   final IconData icon;
   final String text;
-  const ChronButton({super.key, required this.text, required this.icon});
+  final VoidCallback? handlePressed;
+  const ChronButton({super.key, required this.text, required this.icon, this.handlePressed});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: handlePressed,
         style: ElevatedButton.styleFrom(
+          fixedSize: const Size(150, 45),
           backgroundColor: Colors.black87,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

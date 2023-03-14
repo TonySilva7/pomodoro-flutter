@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pomodoro/store/pomodoro.store.dart';
 import 'package:pomodoro/widgets/chron_button.dart';
 import 'package:provider/provider.dart';
@@ -37,23 +36,28 @@ class Chronometer extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                ChronButton(
-                  text: 'Iniciar',
-                  icon: Icons.play_arrow,
-                ),
-                ChronButton(
-                  text: 'Parar',
-                  icon: Icons.stop,
-                ),
-                ChronButton(
-                  text: 'Reiniciar',
-                  icon: Icons.refresh,
-                ),
-              ],
-            )
+            Observer(
+                builder: (ctx) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        store.isStarted
+                            ? ChronButton(
+                                text: 'Parar',
+                                icon: Icons.stop,
+                                handlePressed: store.stopTimer,
+                              )
+                            : ChronButton(
+                                text: 'Iniciar',
+                                icon: Icons.play_arrow,
+                                handlePressed: store.startTimer,
+                              ),
+                        ChronButton(
+                          text: 'Reiniciar',
+                          icon: Icons.refresh,
+                          handlePressed: store.restartTimer,
+                        ),
+                      ],
+                    ))
           ],
         ));
   }

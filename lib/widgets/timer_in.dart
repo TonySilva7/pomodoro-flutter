@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class TimerIn extends StatelessWidget {
   final String title;
   final int value;
-  final void Function()? increment;
-  final void Function()? decrement;
+  final VoidCallback? increment;
+  final VoidCallback? decrement;
 
   const TimerIn({super.key, required this.title, required this.value, this.increment, this.decrement});
 

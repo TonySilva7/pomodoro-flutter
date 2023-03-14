@@ -5,6 +5,9 @@ class PomodoroStore = PomodoroStoreBase with _$PomodoroStore;
 
 abstract class PomodoroStoreBase with Store {
   @observable
+  bool isStarted = false;
+
+  @observable
   int minutes = 2;
 
   @observable
@@ -15,6 +18,21 @@ abstract class PomodoroStoreBase with Store {
 
   @observable
   int restTime = 1;
+
+  @action
+  void startTimer() {
+    isStarted = true;
+  }
+
+  @action
+  void restartTimer() {
+    isStarted = false;
+  }
+
+  @action
+  void stopTimer() {
+    isStarted = false;
+  }
 
   @action
   void incrementWorkingTime() {
