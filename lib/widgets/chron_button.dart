@@ -11,7 +11,7 @@ class ChronButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: handlePressed,
         style: ElevatedButton.styleFrom(
-          fixedSize: const Size(150, 45),
+          // fixedSize: const Size(150, 45),
           backgroundColor: Colors.black87,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
