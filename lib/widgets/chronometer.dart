@@ -15,50 +15,53 @@ class Chronometer extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = Provider.of<PomodoroStore>(context);
 
-    return Container(
-        color: const Color.fromRGBO(237, 59, 32, 1),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Hora de trabalhar',
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white70,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              '${handleTimer(store.minutes)}:${handleTimer(store.seconds)}',
-              style: const TextStyle(
-                fontSize: 100,
-                color: Colors.white70,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Observer(
-                builder: (ctx) => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        store.isStarted
-                            ? ChronButton(
-                                text: 'Parar',
-                                icon: Icons.stop,
-                                handlePressed: store.stopTimer,
-                              )
-                            : ChronButton(
-                                text: 'Iniciar',
-                                icon: Icons.play_arrow,
-                                handlePressed: store.startTimer,
-                              ),
-                        ChronButton(
-                          text: 'Reiniciar',
-                          icon: Icons.refresh,
-                          handlePressed: store.restartTimer,
-                        ),
-                      ],
-                    ))
-          ],
-        ));
+    return Observer(
+      builder: (ctx) {
+        return Container(
+            color: store.isWorking() ? const Color.fromRGBO(237, 59, 32, 1) : const Color(0xFF6acd58),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  store.isWorking() ? 'Hora de trabalhar' : 'Hora de descansar',
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.white70,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  '${handleTimer(store.minutes)}:${handleTimer(store.seconds)}',
+                  style: const TextStyle(
+                    fontSize: 100,
+                    color: Colors.white70,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    store.isStarted
+                        ? ChronButton(
+                            text: 'Parar',
+                            icon: Icons.stop,
+                            handlePressed: store.stopTimer,
+                          )
+                        : ChronButton(
+                            text: 'Iniciar',
+                            icon: Icons.play_arrow,
+                            handlePressed: store.startTimer,
+                          ),
+                    ChronButton(
+                      text: 'Reiniciar',
+                      icon: Icons.refresh,
+                      handlePressed: store.restartTimer,
+                    ),
+                  ],
+                )
+              ],
+            ));
+      },
+    );
   }
 }

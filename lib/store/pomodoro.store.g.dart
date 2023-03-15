@@ -89,6 +89,22 @@ mixin _$PomodoroStore on PomodoroStoreBase, Store {
     });
   }
 
+  late final _$typeIntervalAtom =
+      Atom(name: 'PomodoroStoreBase.typeInterval', context: context);
+
+  @override
+  TypeInterval get typeInterval {
+    _$typeIntervalAtom.reportRead();
+    return super.typeInterval;
+  }
+
+  @override
+  set typeInterval(TypeInterval value) {
+    _$typeIntervalAtom.reportWrite(value, super.typeInterval, () {
+      super.typeInterval = value;
+    });
+  }
+
   late final _$PomodoroStoreBaseActionController =
       ActionController(name: 'PomodoroStoreBase', context: context);
 
@@ -104,22 +120,22 @@ mixin _$PomodoroStore on PomodoroStoreBase, Store {
   }
 
   @override
-  void restartTimer() {
+  void stopTimer() {
     final _$actionInfo = _$PomodoroStoreBaseActionController.startAction(
-        name: 'PomodoroStoreBase.restartTimer');
+        name: 'PomodoroStoreBase.stopTimer');
     try {
-      return super.restartTimer();
+      return super.stopTimer();
     } finally {
       _$PomodoroStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void stopTimer() {
+  void restartTimer() {
     final _$actionInfo = _$PomodoroStoreBaseActionController.startAction(
-        name: 'PomodoroStoreBase.stopTimer');
+        name: 'PomodoroStoreBase.restartTimer');
     try {
-      return super.stopTimer();
+      return super.restartTimer();
     } finally {
       _$PomodoroStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -176,7 +192,8 @@ isStarted: ${isStarted},
 minutes: ${minutes},
 seconds: ${seconds},
 workingTime: ${workingTime},
-restTime: ${restTime}
+restTime: ${restTime},
+typeInterval: ${typeInterval}
     ''';
   }
 }

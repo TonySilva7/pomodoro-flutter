@@ -1,11 +1,9 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:pomodoro/store/pomodoro.store.dart';
 import 'package:pomodoro/widgets/chronometer.dart';
 import 'package:pomodoro/widgets/timer_in.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter/material.dart';
 
 class Pomodoro extends StatelessWidget {
   const Pomodoro({super.key});
@@ -16,8 +14,9 @@ class Pomodoro extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pomodoro'),
-        backgroundColor: const Color.fromRGBO(176, 0, 0, 1),
+        title: const Text("Tony's Pomodoro"),
+        // backgroundColor: store.isWorking() ? const Color.fromRGBO(176, 0, 0, 1) : const Color(0xFF2e9923),
+        backgroundColor: Colors.black87,
       ),
       body: Container(
         constraints: const BoxConstraints(maxWidth: 600),
@@ -36,14 +35,14 @@ class Pomodoro extends StatelessWidget {
                     TimerIn(
                       title: 'Trabalho',
                       value: store.workingTime,
-                      increment: store.incrementWorkingTime,
-                      decrement: store.decrementWorkingTime,
+                      increment: store.isStarted && store.isWorking() ? null : store.incrementWorkingTime,
+                      decrement: store.isStarted && store.isWorking() ? null : store.decrementWorkingTime,
                     ),
                     TimerIn(
                       title: 'Descanso',
                       value: store.restTime,
-                      increment: store.incrementRestTime,
-                      decrement: store.decrementRestTime,
+                      increment: store.isStarted && store.isResting() ? null : store.incrementRestTime,
+                      decrement: store.isStarted && store.isResting() ? null : store.decrementRestTime,
                     ),
                   ],
                 ),
