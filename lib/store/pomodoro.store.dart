@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 
 import 'package:mobx/mobx.dart';
 part 'pomodoro.store.g.dart';
@@ -9,21 +10,22 @@ enum TypeInterval { WORK, REST }
 
 abstract class PomodoroStoreBase with Store {
   Timer? chronometer;
+  AudioPlayer audioPlayer = AudioPlayer();
 
   @observable
   bool isStarted = false;
 
   @observable
-  int minutes = 2;
+  int minutes = 25;
 
   @observable
   int seconds = 0;
 
   @observable
-  int workingTime = 2;
+  int workingTime = 25;
 
   @observable
-  int restTime = 1;
+  int restTime = 5;
 
   @observable
   TypeInterval typeInterval = TypeInterval.WORK;
@@ -32,9 +34,25 @@ abstract class PomodoroStoreBase with Store {
 
   // ---
 
+  Future<void> playSound(String typeSound) async {
+    if (typeSound == 'rest') {
+      await audioPlayer.play(AssetSource('audio/rest.mp3'));
+    } else if (typeSound == 'working') {
+      await audioPlayer.play(AssetSource('audio/working.mp3'));
+    } else {
+      await audioPlayer.play(AssetSource('audio/long_rest2.mp3'));
+    }
+  }
+
+  Future<void> stopSound() async {
+    await audioPlayer.stop();
+  }
+
   @action
   void startTimer() {
     isStarted = true;
+
+    if (isWorking()) playSound('working');
 
     chronometer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       if (minutes == 0 && seconds == 0) {
@@ -52,6 +70,7 @@ abstract class PomodoroStoreBase with Store {
   void stopTimer() {
     isStarted = false;
     chronometer?.cancel();
+    stopSound();
   }
 
   @action
@@ -60,6 +79,7 @@ abstract class PomodoroStoreBase with Store {
     minutes = isWorking() ? workingTime : restTime;
     seconds = 0;
     workCycle = 0;
+    typeInterval = TypeInterval.WORK;
   }
 
   @action
@@ -96,16 +116,19 @@ abstract class PomodoroStoreBase with Store {
   // ---
   void _changeTypeInterval() {
     if (isWorking()) {
+      playSound('rest');
       typeInterval = TypeInterval.REST;
       workCycle++;
 
       if (workCycle >= 4) {
+        playSound('long_rest2');
         minutes = restTime * 3;
         workCycle = 0;
       } else {
         minutes = restTime;
       }
     } else {
+      playSound('working');
       typeInterval = TypeInterval.WORK;
       minutes = workingTime;
     }
