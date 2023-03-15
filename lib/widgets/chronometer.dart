@@ -23,7 +23,9 @@ class Chronometer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  store.isWorking() ? 'Hora de trabalhar' : 'Hora de descansar',
+                  store.isWorking()
+                      ? 'Vamos nessa ${String.fromCharCode(0x1F680)}'
+                      : 'Hora de relaxar ${String.fromCharCode(0x2615)}',
                   style: const TextStyle(
                     fontSize: 30,
                     color: Colors.white70,
