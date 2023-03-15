@@ -54,7 +54,7 @@ abstract class PomodoroStoreBase with Store {
 
     if (isWorking()) playSound('working');
 
-    chronometer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
+    chronometer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (minutes == 0 && seconds == 0) {
         _changeTypeInterval();
       } else if (seconds == 0) {

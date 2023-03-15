@@ -31,7 +31,7 @@ class TimerIn extends StatelessWidget {
                 onPressed: decrement,
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
-                  backgroundColor: store.isWorking() ? const Color.fromRGBO(176, 0, 0, 1) : const Color(0xFF2e9923),
+                  backgroundColor: store.isWorking() ? const Color.fromRGBO(237, 59, 32, 1) : const Color(0xFF2e9923),
                   padding: const EdgeInsets.all(5),
                 ),
                 child: const Icon(Icons.arrow_downward),
@@ -44,7 +44,7 @@ class TimerIn extends StatelessWidget {
                 onPressed: increment,
                 style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
-                  backgroundColor: store.isWorking() ? const Color.fromRGBO(176, 0, 0, 1) : const Color(0xFF2e9923),
+                  backgroundColor: store.isWorking() ? const Color.fromRGBO(237, 59, 32, 1) : const Color(0xFF2e9923),
                   padding: const EdgeInsets.all(5),
                 ),
                 child: const Icon(Icons.arrow_upward),
