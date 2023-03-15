@@ -28,6 +28,8 @@ abstract class PomodoroStoreBase with Store {
   @observable
   TypeInterval typeInterval = TypeInterval.WORK;
 
+  int workCycle = 0;
+
   // ---
 
   @action
@@ -57,6 +59,7 @@ abstract class PomodoroStoreBase with Store {
     stopTimer();
     minutes = isWorking() ? workingTime : restTime;
     seconds = 0;
+    workCycle = 0;
   }
 
   @action
@@ -94,7 +97,14 @@ abstract class PomodoroStoreBase with Store {
   void _changeTypeInterval() {
     if (isWorking()) {
       typeInterval = TypeInterval.REST;
-      minutes = restTime;
+      workCycle++;
+
+      if (workCycle >= 4) {
+        minutes = restTime * 3;
+        workCycle = 0;
+      } else {
+        minutes = restTime;
+      }
     } else {
       typeInterval = TypeInterval.WORK;
       minutes = workingTime;
