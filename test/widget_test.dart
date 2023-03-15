@@ -45,6 +45,7 @@ void main() {
     // This is run after each test, and is a good place to put
     // per-test teardown code that will be run after each test.
   });
+
   testWidgets('Pomodoro smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(myApp);
