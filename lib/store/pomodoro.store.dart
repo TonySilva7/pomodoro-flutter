@@ -54,6 +54,7 @@ abstract class PomodoroStoreBase with Store {
 
     if (isWorking()) playSound('working');
 
+    // Timer.periodic recebe um tempo e uma função que será executada a cada tempo
     chronometer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (minutes == 0 && seconds == 0) {
         _changeTypeInterval();
