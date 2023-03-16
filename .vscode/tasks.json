@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "runTests",
+      "type": "shell",
+      "command": "flutter",
+      "args": [
+        "test"
+      ],
+      // run task in external terminal
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "focus": true,
+      },
+    },
+  ],
+}
